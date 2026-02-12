@@ -1,7 +1,7 @@
-using asp.net_youtube_course.Entities;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace asp.net_youtube_course.Data
+namespace Data
 {
     public class AppDbContext : DbContext
     {

@@ -142,3 +142,5 @@ D:\asp.net-youtube-course\obj\Debug\net8.0\refint\asp.net-youtube-course.dll
 D:\asp.net-youtube-course\obj\Debug\net8.0\asp.net-youtube-course.pdb
 D:\asp.net-youtube-course\obj\Debug\net8.0\asp.net-youtube-course.genruntimeconfig.cache
 D:\asp.net-youtube-course\obj\Debug\net8.0\ref\asp.net-youtube-course.dll
+D:\asp.net-youtube-course\bin\Debug\net8.0\AutoMapper.dll
+D:\asp.net-youtube-course\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

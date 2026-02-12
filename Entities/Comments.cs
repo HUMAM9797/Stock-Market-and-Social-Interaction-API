@@ -1,4 +1,4 @@
-namespace asp.net_youtube_course.Entities;
+namespace Entities;
 
 public class Comments
 {

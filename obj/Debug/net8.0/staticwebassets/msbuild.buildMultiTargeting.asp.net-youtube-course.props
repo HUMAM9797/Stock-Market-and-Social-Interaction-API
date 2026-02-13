@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\asp.net-youtube-course.props" />
-</Project>

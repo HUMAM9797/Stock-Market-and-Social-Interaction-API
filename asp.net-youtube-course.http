@@ -4,3 +4,27 @@ GET {{asp.net_youtube_course_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{asp.net_youtube_course_HostAddress}}/api/stock
+Accept: application/json
+
+###
+
+POST {{asp.net_youtube_course_HostAddress}}/api/stock
+Content-Type: application/json
+
+{
+  "sympol": 123,
+  "companyName": "Test Company",
+  "purches": 100.50,
+  "lastDiv": 5.00,
+  "industry": "Tech",
+  "marketCap": 1000000
+}
+
+###
+
+GET {{asp.net_youtube_course_HostAddress}}/api/stock/1
+Accept: application/json
+
+###

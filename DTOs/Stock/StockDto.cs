@@ -1,6 +1,7 @@
 
-namespace DTOs.Request;
-public class StockRequest
+namespace DTOs.Stock;
+
+public class StockDto
 {
     public int Id { get; set; }
     public int Sympol { get; set; }

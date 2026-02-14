@@ -11,6 +11,7 @@ public class Mappingprofiles : Profile
         CreateMap<Stock, StockDto>();
         CreateMap<Stock, CreateStockDto>();
         CreateMap<CreateStockDto, Stock>();
-        CreateMap<Stock, UpdateStockDto>();
+        CreateMap<UpdateStockDto, Stock>();
+        CreateMap<Stock, CreateStockDto>();
     }
 }

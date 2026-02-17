@@ -25,6 +25,10 @@ public class CommentsController(ICommentsRepository commentsRepo, IMapper mapper
     public async Task<IActionResult> GetAllComments()
     {
         var CommentsModel = commentsRepo.GetAllCommentsAsync();
+        if (CommentsModel == null)
+        {
+            return NotFound();
+        }
         var CommentsDto = mapper.Map<List<CommentsDto>> (CommentsModel);
         return Ok(CommentsDto);
     }

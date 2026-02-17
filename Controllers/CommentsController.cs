@@ -21,6 +21,7 @@ public class CommentsController(ICommentsRepository commentsRepo, IMapper mapper
         return Ok(commentsDto);
     }
 
+    [HttpGet]
     public async Task<IActionResult> GetAllComments()
     {
         var CommentsModel = commentsRepo.GetAllCommentsAsync();

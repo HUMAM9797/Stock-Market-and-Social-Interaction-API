@@ -4,84 +4,69 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using DTOs.Stock;
 using Entities;
+using Interfaces;
+using Repository;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.VisualBasic;
 
 namespace Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class StockController : ControllerBase
+public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseController
 {
-    private readonly AppDbContext _db;
-    private readonly IMapper _Mapper;
-    public StockController(AppDbContext db, IMapper Mapper)
-    {
-        _db = db;
-        _Mapper = Mapper;
-    }
-
     [HttpGet]
-    public async Task<ActionResult<StockDto>> GetStock()
+    public async Task<ActionResult<List<StockDto>>> GetStock()
     {
-        var Stocks = await _db.Stock.ToListAsync();
-        var StockDto = _Mapper.Map<List<StockDto>>(Stocks);
-        return Ok(StockDto);
+        var stocks = await stockRepo.GetStockAsync();
+        var stockDto = mapper.Map<List<StockDto>>(stocks);
+        return Ok(stockDto);
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<StockDto>> GetStockById([FromRoute] int id)
     {
-        var Stocks = await _db.Stock.FindAsync(id);
-        if (Stocks == null)
+        var stock = await stockRepo.GetStockByIdAsync(id);
+        if (stock == null)
             return NotFound();
-        var StockDto = _Mapper.Map<StockDto>(Stocks);
-        return Ok(StockDto);
+        var stockDto = mapper.Map<StockDto>(stock);
+        return Ok(stockDto);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateStock([FromBody] CreateStockDto StockDto)
+    public async Task<IActionResult> CreateStock([FromBody] CreateStockDto stockDto)
     {
-        var CreateStock = _Mapper.Map<Stock>(StockDto);
-        await _db.Stock.AddAsync(CreateStock);
-        await _db.SaveChangesAsync();
+        var stockModel = mapper.Map<Stock>(stockDto);
+        await stockRepo.CreateStockAsync(stockModel);
 
-        return CreatedAtAction(nameof(GetStockById),new {id = CreateStock.Id},StockDto);
+        return CreatedAtAction(nameof(GetStockById), new { id = stockModel.Id }, mapper.Map<StockDto>(stockModel));
     }
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<IActionResult> UpdateStock([FromRoute] int id , [FromBody] UpdateStockDto StockDto)
+    public async Task<IActionResult> UpdateStock([FromRoute] int id, [FromBody] UpdateStockDto stockDto)
     {
-        var Stocks = await _db.Stock.FirstOrDefaultAsync(s => s.Id == id);
-        if(Stocks == null) 
+
+        var stock = await stockRepo.GetStockByIdAsync(id);
+        if (stock == null)
         {
             return NotFound();
         }
-        _Mapper.Map(StockDto,Stocks);
-
-            // Stocks.CompanyName = StockDto.CompanyName;
-            // Stocks.Industry = StockDto.Industry;
-            // Stocks.LastDiv = StockDto.LastDiv;
-            // Stocks.Purches = StockDto.Purches;
-            // Stocks.MarketCap = StockDto.MarketCap;
-            // Stocks.Sympol = StockDto.Sympol;
-
-        await _db.SaveChangesAsync();    
-        return Ok(StockDto);
+        mapper.Map(stockDto, stock);
+        await stockRepo.UpdateStockAsync(stock);
+        return Ok(mapper.Map<StockDto>(stock));
     }
 
     [HttpDelete]
     [Route("{id}")]
     public async Task<IActionResult> DeleteStock([FromRoute] int id)
     {
-        var Stocks = await _db.Stock.FirstOrDefaultAsync(s => s.Id == id && !s.IsDeleted);
-        if(Stocks == null)
+        var stock = await stockRepo.GetStockByIdAsync(id);
+        if (stock == null)
         {
             return NotFound();
         }
-        Stocks.IsDeleted = true;
-        await _db.SaveChangesAsync();
+        stock.IsDeleted = true;
+        await stockRepo.DeleteStockAsync(id, stock);
         return NoContent();
     }
 

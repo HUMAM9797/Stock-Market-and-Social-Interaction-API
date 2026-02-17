@@ -2,7 +2,6 @@ namespace DTOs.Stock;
 
 public class CreateStockDto
 {
-    public bool IsDeleted { get; set; } = false;
     public int Sympol { get; set; }
     public string CompanyName { get; set; } = string.Empty;
     public decimal Purches { get; set; }

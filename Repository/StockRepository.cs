@@ -1,13 +1,13 @@
 using Data;
 using DTOs.Stock;
 using Entities;
-using interfaces;
+using Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
-public class StockRepository(AppDbContext db) : IstockRepository
+public class StockRepository(AppDbContext db) : IStockRepository
 {
     public async Task<Stock> CreateStockAsync(Stock stockModel)
     {

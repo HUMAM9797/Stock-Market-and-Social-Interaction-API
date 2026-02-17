@@ -1,4 +1,5 @@
 using AutoMapper;
+using DTOs.Comments;
 using DTOs.Stock;
 using Entities;
 
@@ -13,5 +14,6 @@ public class Mappingprofiles : Profile
         CreateMap<CreateStockDto, Stock>();
         CreateMap<UpdateStockDto, Stock>();
         CreateMap<Stock, CreateStockDto>();
+        CreateMap<Comments, CommentsDto>();
     }
 }

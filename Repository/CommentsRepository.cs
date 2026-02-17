@@ -18,9 +18,9 @@ public class CommentsRepository(AppDbContext db) : ICommentsRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<Comments>> GetAllComments()
+    public async Task<List<Comments>> GetAllCommentsAsync()
     {
-        throw new NotImplementedException();
+        return await db.Comments.ToListAsync();
     }
 
     public async Task<Comments?> GetCommentsByIdAysnc(int id)

@@ -20,4 +20,11 @@ public class CommentsController(ICommentsRepository commentsRepo, IMapper mapper
         var commentsDto = mapper.Map<CommentsDto>(CommentsModel);
         return Ok(commentsDto);
     }
+
+    public async Task<IActionResult> GetAllComments()
+    {
+        var CommentsModel = commentsRepo.GetAllCommentsAsync();
+        var CommentsDto = mapper.Map<List<CommentsDto>> (CommentsModel);
+        return Ok(CommentsDto);
+    }
 }

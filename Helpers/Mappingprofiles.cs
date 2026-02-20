@@ -1,6 +1,6 @@
 using AutoMapper;
 using DTOs.Comments;
-using DTOs.Stock;
+using DTOs.Stocks;
 using Entities;
 
 namespace Helpers;
@@ -13,7 +13,8 @@ public class Mappingprofiles : Profile
         CreateMap<Stock, CreateStockDto>();
         CreateMap<CreateStockDto, Stock>();
         CreateMap<UpdateStockDto, Stock>();
-        CreateMap<Stock, CreateStockDto>();
         CreateMap<Comments, CommentsDto>();
+        CreateMap<CommentsDto, Comments>();
+        CreateMap<CreateCommentsDto, Comments>();
     }
 }

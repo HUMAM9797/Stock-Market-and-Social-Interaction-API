@@ -1,7 +1,7 @@
 using AutoMapper;
 using Controllers;
 using Microsoft.AspNetCore.Mvc;
-using DTOs.Stock;
+using DTOs.Stocks;
 using Entities;
 namespace Interfaces;
 
@@ -12,4 +12,5 @@ public interface IStockRepository
     Task<Stock> CreateStockAsync(Stock stockModel);
     Task<Stock?> UpdateStockAsync(Stock stockModel);
     Task<Stock> DeleteStockAsync(int id, Stock stockModel);
+    Task<bool> StockExisit(int id);
 }

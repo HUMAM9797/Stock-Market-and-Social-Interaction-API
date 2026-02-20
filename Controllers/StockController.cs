@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data;
-using DTOs.Stock;
+using DTOs.Stocks;
 using Entities;
 using Interfaces;
 using Repository;
@@ -45,7 +45,6 @@ public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseC
     [Route("{id}")]
     public async Task<IActionResult> UpdateStock([FromRoute] int id, [FromBody] UpdateStockDto stockDto)
     {
-
         var stock = await stockRepo.GetStockByIdAsync(id);
         if (stock == null)
         {

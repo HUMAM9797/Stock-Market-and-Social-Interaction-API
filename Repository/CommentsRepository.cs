@@ -8,9 +8,12 @@ namespace Repository;
 
 public class CommentsRepository(AppDbContext db) : ICommentsRepository
 {
-    public Task<Comments> CreateComments()
+
+    public async Task<Comments> CreateCommentsAsync(Comments commentsModel)
     {
-        throw new NotImplementedException();
+        await db.Comments.AddAsync(commentsModel);
+        await db.SaveChangesAsync();
+        return commentsModel;
     }
 
     public Task<Comments> DeleteComments()

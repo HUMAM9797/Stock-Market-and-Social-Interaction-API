@@ -18,6 +18,6 @@ namespace Data;
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Stock>().HasQueryFilter(filter: s => !s.IsDeleted);
     }
-    }
+    } 
 
 

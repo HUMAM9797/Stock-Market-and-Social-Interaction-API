@@ -8,5 +8,4 @@ public class Comments
     public DateTime MyProperty { get; set; }
     public int StockId { get; set; }
     public Stock? Stock { get; set; }
-
 }

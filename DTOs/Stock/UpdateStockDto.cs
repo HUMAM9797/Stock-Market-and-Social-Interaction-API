@@ -1,4 +1,4 @@
-namespace DTOs.Stock;
+namespace DTOs.Stocks;
 
 public class UpdateStockDto
 {

@@ -1,8 +1,6 @@
 using Data;
-using DTOs.Stocks;
 using Entities;
 using Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository;

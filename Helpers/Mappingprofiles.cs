@@ -16,5 +16,7 @@ public class Mappingprofiles : Profile
         CreateMap<Comments, CommentsDto>();
         CreateMap<CommentsDto, Comments>();
         CreateMap<CreateCommentsDto, Comments>();
+        CreateMap<UpdateCommentsDto, Comments>();
+        CreateMap<Comments, UpdateCommentsDto>();
     }
 }

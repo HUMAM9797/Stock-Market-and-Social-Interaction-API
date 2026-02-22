@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace asp.net_youtube_course.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260212142303_ChangeReturnType")]
-    partial class ChangeReturnType
+    [Migration("20260222214905_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace asp.net_youtube_course.Migrations
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("MyProperty")
                         .HasColumnType("datetime2");
@@ -70,6 +73,9 @@ namespace asp.net_youtube_course.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("LastDiv")
                         .HasColumnType("decimal(18,2)");
 
@@ -79,8 +85,9 @@ namespace asp.net_youtube_course.Migrations
                     b.Property<decimal>("Purches")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Sympol")
-                        .HasColumnType("int");
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

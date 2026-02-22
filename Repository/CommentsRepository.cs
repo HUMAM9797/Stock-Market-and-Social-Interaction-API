@@ -1,4 +1,3 @@
-using System;
 using Data;
 using Entities;
 using Interfaces;
@@ -16,9 +15,10 @@ public class CommentsRepository(AppDbContext db) : ICommentsRepository
         return commentsModel;
     }
 
-    public Task<Comments> DeleteComments()
+    public async Task<Comments> DeleteCommentsAysnc(Comments commentModel)
     {
-        throw new NotImplementedException();
+        await db.SaveChangesAsync();
+        return commentModel;
     }
 
     public async Task<List<Comments>> GetAllCommentsAsync()
@@ -30,9 +30,10 @@ public class CommentsRepository(AppDbContext db) : ICommentsRepository
     {
         return await db.Comments.FirstOrDefaultAsync(c => c.Id == id);
     }
-    
-    public Task<Comments> UpdateComments()
+
+    public async Task<Comments?> UpdateCommentsAysnc(Comments commentModel)
     {
-        throw new NotImplementedException();
+        await db.SaveChangesAsync();
+        return commentModel;
     }
 }

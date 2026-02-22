@@ -34,6 +34,9 @@ namespace asp.net_youtube_course.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("MyProperty")
                         .HasColumnType("datetime2");
 
@@ -79,12 +82,37 @@ namespace asp.net_youtube_course.Migrations
                     b.Property<decimal>("Purches")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Sympol")
-                        .HasColumnType("int");
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Stock");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompanyName = "APPLE INC",
+                            Industry = "Technology",
+                            IsDeleted = false,
+                            LastDiv = 2.5m,
+                            MarketCap = 3000000000L,
+                            Purches = 250.00m,
+                            Symbol = "AAPL"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CompanyName = "MICROSOFT",
+                            Industry = "Technology",
+                            IsDeleted = false,
+                            LastDiv = 3.0m,
+                            MarketCap = 2500000000L,
+                            Purches = 150.00m,
+                            Symbol = "MSFT"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Comments", b =>

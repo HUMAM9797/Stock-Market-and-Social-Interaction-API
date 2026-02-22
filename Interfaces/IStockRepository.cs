@@ -1,7 +1,3 @@
-using AutoMapper;
-using Controllers;
-using Microsoft.AspNetCore.Mvc;
-using DTOs.Stocks;
 using Entities;
 namespace Interfaces;
 

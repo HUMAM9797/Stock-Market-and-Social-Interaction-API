@@ -1,4 +1,3 @@
-using System;
 using Entities;
 
 
@@ -9,7 +8,7 @@ public interface ICommentsRepository
     Task<List<Comments>> GetAllCommentsAsync();
     Task<Comments?> GetCommentsByIdAysnc(int id);
     Task<Comments> CreateCommentsAsync(Comments commentsModel);
-    Task<Comments> UpdateComments();
-    Task<Comments> DeleteComments();
-    
+    Task<Comments?> UpdateCommentsAysnc(Comments commentModel);
+    Task<Comments> DeleteCommentsAysnc(Comments commentModel);
+
 }

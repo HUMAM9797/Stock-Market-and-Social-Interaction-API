@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities;
@@ -7,7 +6,7 @@ public class Stock
 {
     public int Id { get; set; }
     public bool IsDeleted { get; set; } = false;
-    public int Sympol { get; set; }
+    public string Symbol { get; set; } = string.Empty;
     public string CompanyName { get; set; } = string.Empty;
     [Column(TypeName = "decimal(18,2)")]
     public decimal Purches { get; set; }

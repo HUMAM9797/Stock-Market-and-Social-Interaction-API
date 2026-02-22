@@ -1,12 +1,8 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Data;
 using DTOs.Stocks;
 using Entities;
 using Interfaces;
-using Repository;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Controllers;
 
@@ -17,19 +13,19 @@ public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseC
     [HttpGet]
     public async Task<ActionResult<List<StockDto>>> GetStock()
     {
-        var stocks = await stockRepo.GetStockAsync();
-        var stockDto = mapper.Map<List<StockDto>>(stocks);
-        return Ok(stockDto);
+        var stockModel = await stockRepo.GetStockAsync();
+        mapper.Map<List<StockDto>>(stockModel);
+        return Ok(stockModel);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<StockDto>> GetStockById([FromRoute] int id)
     {
-        var stock = await stockRepo.GetStockByIdAsync(id);
-        if (stock == null)
+        var stockModel = await stockRepo.GetStockByIdAsync(id);
+        if (stockModel == null)
             return NotFound();
-        var stockDto = mapper.Map<StockDto>(stock);
-        return Ok(stockDto);
+        mapper.Map<StockDto>(stockModel);
+        return Ok(stockModel);
     }
 
     [HttpPost]
@@ -42,7 +38,7 @@ public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseC
     }
 
     [HttpPut]
-    [Route("{id}")]
+    [Route("{id:int}")]
     public async Task<IActionResult> UpdateStock([FromRoute] int id, [FromBody] UpdateStockDto stockDto)
     {
         var stock = await stockRepo.GetStockByIdAsync(id);
@@ -52,11 +48,11 @@ public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseC
         }
         mapper.Map(stockDto, stock);
         await stockRepo.UpdateStockAsync(stock);
-        return Ok(mapper.Map<StockDto>(stock));
+        return Ok(mapper.Map<UpdateStockDto>(stock));
     }
 
     [HttpDelete]
-    [Route("{id}")]
+    [Route("{id:int}")]
     public async Task<IActionResult> DeleteStock([FromRoute] int id)
     {
         var stock = await stockRepo.GetStockByIdAsync(id);

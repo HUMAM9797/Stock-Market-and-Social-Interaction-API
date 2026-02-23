@@ -12,17 +12,17 @@ namespace Controllers;
 public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseController
 {
     [HttpGet]
-    public async Task<ActionResult<List<StockDto>>> GetStock()
+    public async Task<ActionResult<List<StockDto>>> GetStock([FromQuery] QueryObject query)
     {
-        var stockModel = await stockRepo.GetStockAsync();
+        var stockModel = await stockRepo.GetStockAsync(query);
         mapper.Map<List<StockDto>>(stockModel);
         return Ok(stockModel);
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<StockDto>> GetStockById([FromRoute] int id, [FromQuery] QueryObject query)
+    public async Task<ActionResult<StockDto>> GetStockById([FromRoute] int id)
     {
-        var stockModel = await stockRepo.GetStockByIdAsync(id,query);
+        var stockModel = await stockRepo.GetStockByIdAsync(id);
         if (stockModel == null)
             return NotFound();
         mapper.Map<StockDto>(stockModel);
@@ -40,9 +40,9 @@ public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseC
 
     [HttpPut]
     [Route("{id:int}")]
-    public async Task<IActionResult> UpdateStock([FromRoute] int id, [FromBody] UpdateStockDto stockDto,[FromQuery] QueryObject query)
+    public async Task<IActionResult> UpdateStock([FromRoute] int id, [FromBody] UpdateStockDto stockDto)
     {
-        var stock = await stockRepo.GetStockByIdAsync(id,query);
+        var stock = await stockRepo.GetStockByIdAsync(id);
         if (stock == null)
         {
             return NotFound();
@@ -54,9 +54,9 @@ public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseC
 
     [HttpDelete]
     [Route("{id:int}")]
-    public async Task<IActionResult> DeleteStock([FromRoute] int id,[FromQuery] QueryObject query)
+    public async Task<IActionResult> DeleteStock([FromRoute] int id)
     {
-        var stock = await stockRepo.GetStockByIdAsync(id,query);
+        var stock = await stockRepo.GetStockByIdAsync(id);
         if (stock == null)
         {
             return NotFound();

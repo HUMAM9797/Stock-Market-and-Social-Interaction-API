@@ -23,15 +23,9 @@ public class StockRepository(AppDbContext db) : IStockRepository
         return stockModel;
     }
 
-    public async Task<List<Stock>> GetStockAsync()
-    {
-        return await db.Stock.Include(c => c.Comment).ToListAsync();
-    }
-
-    public async Task<Stock?> GetStockByIdAsync(int id, QueryObject query)
+    public async Task<List<Stock>> GetStockAsync(QueryObject query)
     {
         var stocks = db.Stock.Include(c => c.Comment).AsQueryable();
-
         if (!string.IsNullOrWhiteSpace(query.Symbol))
         {
             stocks = stocks.Where(s => s.Symbol == query.Symbol);
@@ -42,7 +36,12 @@ public class StockRepository(AppDbContext db) : IStockRepository
             stocks = stocks.Where(s => s.CompanyName == query.CompanyName);
         }
 
-        return await stocks.FirstOrDefaultAsync(i => i.Id == id);
+        return await stocks.ToListAsync();
+    }
+
+    public async Task<Stock?> GetStockByIdAsync(int id)
+    {
+        return await db.Stock.Include(c => c.Comment).FirstOrDefaultAsync(i => i.Id == id);
     }
 
     public Task<bool> StockExisit(int id)

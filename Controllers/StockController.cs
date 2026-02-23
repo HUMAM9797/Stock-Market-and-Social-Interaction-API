@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using DTOs.Stocks;
 using Entities;
 using Interfaces;
+using Helpers;
 
 namespace Controllers;
 
@@ -19,9 +20,9 @@ public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseC
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<StockDto>> GetStockById([FromRoute] int id)
+    public async Task<ActionResult<StockDto>> GetStockById([FromRoute] int id, [FromQuery] QueryObject query)
     {
-        var stockModel = await stockRepo.GetStockByIdAsync(id);
+        var stockModel = await stockRepo.GetStockByIdAsync(id,query);
         if (stockModel == null)
             return NotFound();
         mapper.Map<StockDto>(stockModel);
@@ -39,9 +40,9 @@ public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseC
 
     [HttpPut]
     [Route("{id:int}")]
-    public async Task<IActionResult> UpdateStock([FromRoute] int id, [FromBody] UpdateStockDto stockDto)
+    public async Task<IActionResult> UpdateStock([FromRoute] int id, [FromBody] UpdateStockDto stockDto,[FromQuery] QueryObject query)
     {
-        var stock = await stockRepo.GetStockByIdAsync(id);
+        var stock = await stockRepo.GetStockByIdAsync(id,query);
         if (stock == null)
         {
             return NotFound();
@@ -53,9 +54,9 @@ public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseC
 
     [HttpDelete]
     [Route("{id:int}")]
-    public async Task<IActionResult> DeleteStock([FromRoute] int id)
+    public async Task<IActionResult> DeleteStock([FromRoute] int id,[FromQuery] QueryObject query)
     {
-        var stock = await stockRepo.GetStockByIdAsync(id);
+        var stock = await stockRepo.GetStockByIdAsync(id,query);
         if (stock == null)
         {
             return NotFound();

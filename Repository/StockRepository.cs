@@ -18,7 +18,6 @@ public class StockRepository(AppDbContext db) : IStockRepository
 
     public async Task<Stock> DeleteStockAsync(int id, Stock stockModel)
     {
-        await db.Stock.FirstOrDefaultAsync(s => s.Id == id && !s.IsDeleted);
         await db.SaveChangesAsync();
         return stockModel;
     }
@@ -36,16 +35,19 @@ public class StockRepository(AppDbContext db) : IStockRepository
             stocks = stocks.Where(s => s.CompanyName == query.CompanyName);
         }
 
-        if(!string.IsNullOrWhiteSpace(query.SortBy))
+        if (!string.IsNullOrWhiteSpace(query.SortBy))
         {
-            if(query.SortBy.Equals("Symbol",StringComparison.OrdinalIgnoreCase))
+            if (query.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase))
             {
                 stocks = query.SortByDesending ?
-                stocks.OrderByDescending(s => s.Symbol) : 
+                stocks.OrderByDescending(s => s.Symbol) :
                 stocks.OrderBy(s => s.Symbol);
             }
         }
-        
+
+        var skipNumber = (query.PageNumber - 1) * query.pageSize;
+        stocks = stocks.Skip(skipNumber).Take(query.pageSize);
+
         return await stocks.ToListAsync();
     }
 

@@ -2,13 +2,21 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "msbuild",
-			"problemMatcher": [
-				"$msCompile"
+			"label": "build",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/asp.net-youtube-course.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
 			],
-			"group": "build",
-			"label": "Build: asp.net-youtube-course.csproj",
-			"detail": "Build the asp.net-youtube-course.csproj project using dotnet build"
+			"problemMatcher": "$msCompile",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "Build the asp.net-youtube-course project"
 		}
 	]
 }

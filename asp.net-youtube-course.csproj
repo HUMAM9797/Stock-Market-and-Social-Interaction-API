@@ -18,9 +18,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTOs\Comments\" />
+    <Folder Include="DTOs\Identity\" />
     <Folder Include="Extentions\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Controllers\BaseController.cs" />
-  </ItemGroup>
+  
 </Project>

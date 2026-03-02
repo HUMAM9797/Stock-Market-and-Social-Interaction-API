@@ -3,13 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Repository;
 using Interfaces;
 using Extentions;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
@@ -23,9 +21,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 });
-builder.Services.AddIdentintiyServices(builder.Configuration);
-
-
+builder.Services.AddIdentityServices(builder.Configuration);
 
 
 var app = builder.Build();

@@ -1,9 +1,9 @@
-using System;
 using System.Text;
-using asp.net_youtube_course.Entities;
+using Entities;
 using Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,7 +11,7 @@ namespace Extentions;
 
 public static class IdentityServiceExtentions
 {
-    public static IServiceCollection AddIdentintiyServices(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
     {
         services.AddIdentity<AppUser,IdentityRole>( options =>{
             options.Password.RequireDigit = true;

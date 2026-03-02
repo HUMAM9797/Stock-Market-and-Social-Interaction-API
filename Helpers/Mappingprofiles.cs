@@ -1,5 +1,7 @@
+using asp.net_youtube_course.Migrations;
 using AutoMapper;
 using DTOs.Comments;
+using DTOs.Identity;
 using DTOs.Stocks;
 using Entities;
 
@@ -18,5 +20,6 @@ public class Mappingprofiles : Profile
         CreateMap<CreateCommentsDto, Comments>();
         CreateMap<UpdateCommentsDto, Comments>();
         CreateMap<Comments, UpdateCommentsDto>();
+        CreateMap<RegisterDto, AppUser>();
     }
 }

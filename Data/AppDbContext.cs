@@ -1,5 +1,5 @@
-using asp.net_youtube_course.Entities;
 using Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -283,6 +283,18 @@ public class AppDbContext : IdentityDbContext<AppUser>
                 Content = "Energy demand remains high",
                 MyProperty = new DateTime(2024, 2, 12),
                 StockId = 14
+            }
+        );
+        modelBuilder.Entity<IdentityRole>().HasData(
+            new IdentityRole
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            },
+            new IdentityRole
+            {
+                Name = "User",
+                NormalizedName = "USER"
             }
         );
     }

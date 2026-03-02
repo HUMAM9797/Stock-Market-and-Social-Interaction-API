@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "msbuild",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build",
+			"label": "Build: asp.net-youtube-course.csproj",
+			"detail": "Build the asp.net-youtube-course.csproj project using dotnet build"
+		}
+	]
+}

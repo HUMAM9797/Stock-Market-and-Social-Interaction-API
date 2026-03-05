@@ -1,5 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Entities;
 
+[Table("Comments")]
 public class Comments
 {
     public int Id { get; set; }

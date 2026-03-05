@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using asp.net_youtube_course.Entities;
 
 namespace Entities;
 
+[Table("Stocks")]
 public class Stock
 {
     public int Id { get; set; }
@@ -14,5 +16,6 @@ public class Stock
     public decimal LastDiv { get; set; }
     public string Industry { get; set; } = string.Empty;
     public long MarketCap { get; set; }
-    public List<Comments>? Comment { get; set; }
+    public List<Comments>? Comments { get; set; }
+    public List<Portfolio>? Portfolios { get; set; }
 }

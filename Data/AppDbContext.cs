@@ -1,3 +1,5 @@
+using asp.net_youtube_course.Entities;
+using asp.net_youtube_course.Migrations;
 using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -13,12 +15,37 @@ public class AppDbContext : IdentityDbContext<AppUser>
 
     public DbSet<Stock> Stock { get; set; }
     public DbSet<Comments> Comments { get; set; }
+    public DbSet<Portfolio> Portfolios { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Stock>().HasQueryFilter(filter: s => !s.IsDeleted);
         modelBuilder.Entity<Comments>().HasQueryFilter(filter: c => !c.IsDeleted);
+        modelBuilder.Entity<Portfolio>(x=> x.HasKey(p => new {p.AppUserId,p.StockId}));
+        
+        modelBuilder.Entity<Portfolio>()
+        .HasOne(u => u.appUser)
+        .WithMany(u => u.Portfolios)
+        .HasForeignKey(p => p.AppUserId);
+
+        modelBuilder.Entity<Portfolio>()
+        .HasOne(u => u.stock)
+        .WithMany(u => u.Portfolios)
+        .HasForeignKey(p => p.StockId);
+
+        modelBuilder.Entity<IdentityRole>().HasData(
+            new IdentityRole
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            },
+            new IdentityRole
+            {
+                Name = "User",
+                NormalizedName = "USER"
+            }
+        );
 
         modelBuilder.Entity<Stock>().HasData(
             new Stock
@@ -285,17 +312,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
                 StockId = 14
             }
         );
-        modelBuilder.Entity<IdentityRole>().HasData(
-            new IdentityRole
-            {
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            },
-            new IdentityRole
-            {
-                Name = "User",
-                NormalizedName = "USER"
-            }
-        );
+
     }
 }

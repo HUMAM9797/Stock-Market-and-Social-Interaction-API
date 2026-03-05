@@ -4,6 +4,7 @@ using DTOs.Stocks;
 using Entities;
 using Interfaces;
 using Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers;
 
@@ -12,6 +13,7 @@ namespace Controllers;
 public class StockController(IMapper mapper, IStockRepository stockRepo) : BaseController
 {
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<List<StockDto>>> GetStock([FromQuery] QueryObject query)
     {
         var stockModel = await stockRepo.GetStockAsync(query);
